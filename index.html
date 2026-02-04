@@ -127,51 +127,58 @@
     <img src="IMG_0451.jpeg" alt="Parce qu'on aime voyager ❤️">
 
   <script>
-    const yesBtn = document.getElementById("yesBtn");
-    const noBtn = document.getElementById("noBtn");
-    const questionPage = document.getElementById("questionPage");
-    const yesPage = document.getElementById("yesPage");
+  const yesBtn = document.getElementById("yesBtn");
+  const noBtn = document.getElementById("noBtn");
+  const questionPage = document.getElementById("questionPage");
+  const yesPage = document.getElementById("yesPage");
 
-    function moveNo() {
-      const x = Math.random() * 200;
-      const y = Math.random() * 40;
-      noBtn.style.left = x + "px";
-      noBtn.style.top = y + "px";
+  // Bouton NON qui fuit
+  function moveNo() {
+    const x = Math.random() * 200;
+    const y = Math.random() * 40;
+    noBtn.style.left = x + "px";
+    noBtn.style.top = y + "px";
+  }
+
+  noBtn.addEventListener("mouseenter", moveNo);
+  noBtn.addEventListener("click", moveNo);
+  noBtn.addEventListener("touchstart", (e) => {
+    e.preventDefault();
+    moveNo();
+  });
+
+  // 👉 LANCER LES POULETS
+  function startChickens() {
+    for (let i = 0; i < 30; i++) {
+      createChicken();
     }
+  }
 
-    noBtn.addEventListener("mouseenter", moveNo);
-    noBtn.addEventListener("click", moveNo);
-    noBtn.addEventListener("touchstart", (e) => {
-      e.preventDefault();
-      moveNo();
-    });
+  function createChicken() {
+    const chicken = document.createElement("div");
+    chicken.className = "chicken";
+    chicken.textContent = "🐔";
+    chicken.style.left = Math.random() * 100 + "vw";
+    chicken.style.animationDuration = 3 + Math.random() * 4 + "s";
+    document.body.appendChild(chicken);
 
-    yesBtn.addEventListener("click", () => {
-      questionPage.style.display = "none";
-      yesPage.style.display = "flex";
+    setTimeout(() => {
+      chicken.remove();
+      createChicken();
+    }, 6000);
+  }
+
+  // Quand il dit OUI
+  yesBtn.addEventListener("click", () => {
+    questionPage.style.display = "none";
+    yesPage.style.display = "flex";
+
+    // ⏱️ petit délai pour iPhone (clé du succès)
+    setTimeout(() => {
       startChickens();
-    });
-
-    function startChickens() {
-      for (let i = 0; i < 25; i++) {
-        createChicken();
-      }
-    }
-
-    function createChicken() {
-      const chicken = document.createElement("div");
-      chicken.className = "chicken";
-      chicken.textContent = "🐔";
-      chicken.style.left = Math.random() * 100 + "vw";
-      chicken.style.animationDuration = 3 + Math.random() * 4 + "s";
-      document.body.appendChild(chicken);
-
-      setTimeout(() => {
-        chicken.remove();
-        createChicken();
-      }, 7000);
-    }
-  </script>
+    }, 300);
+  });
+</script>
 
 </body>
 </html>
