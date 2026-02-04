@@ -3,170 +3,175 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Saint-Valentin 💘</title>
-  <style>
-    :root {
-      --bg1: #ffdde1;
-      --bg2: #ee9ca7;
-      --card: rgba(255,255,255,0.9);
-      --text: #2b2b2b;
-    }
+  <title>Champion 🐔♥️</title>
 
-    * { box-sizing: border-box; }
+  <style>
     body {
       margin: 0;
       min-height: 100vh;
-      display: grid;
-      place-items: center;
       font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
-      color: var(--text);
-      background: radial-gradient(circle at top, var(--bg1), var(--bg2));
+      background: linear-gradient(to bottom, #fff, #ffe5e5);
+      display: flex;
+      align-items: center;
+      justify-content: center;
       overflow: hidden;
-      padding: 24px;
+      text-align: center;
     }
 
-    .card {
-      width: min(560px, 100%);
-      background: var(--card);
-      border-radius: 24px;
+    .card, .yes-page {
+      background: white;
       padding: 28px;
-      box-shadow: 0 16px 50px rgba(0,0,0,0.12);
-      text-align: center;
-      position: relative;
+      border-radius: 24px;
+      box-shadow: 0 20px 50px rgba(0,0,0,0.15);
+      max-width: 520px;
+      width: 90%;
+      z-index: 2;
     }
 
     h1 {
-      margin: 0 0 10px;
-      font-size: clamp(26px, 3.5vw, 36px);
+      color: #c1121f;
     }
+
     p {
-      margin: 0 0 22px;
       font-size: 18px;
-      line-height: 1.4;
     }
 
     .buttons {
-      display: flex;
-      justify-content: center;
-      gap: 14px;
-      flex-wrap: wrap;
-      margin-top: 10px;
+      margin-top: 25px;
       position: relative;
-      height: 70px; /* espace pour le bouton non qui bouge */
+      height: 70px;
     }
 
     button {
-      border: 0;
-      padding: 14px 22px;
+      border: 2px solid #c1121f;
+      padding: 14px 26px;
       border-radius: 999px;
       font-size: 18px;
+      font-weight: bold;
       cursor: pointer;
-      transition: transform 0.12s ease;
-      user-select: none;
     }
-    button:active { transform: scale(0.98); }
 
     #yesBtn {
-      background: #22c55e;
+      background: #c1121f;
       color: white;
-      font-weight: 700;
     }
+
     #noBtn {
-      background: #ef4444;
-      color: white;
-      font-weight: 700;
-      position: absolute; /* on le bouge dans la zone .buttons */
-      left: 50%;
-      transform: translateX(20px);
+      background: white;
+      color: #c1121f;
+      position: absolute;
+      left: 55%;
+      top: 0;
     }
 
-    .result {
-      margin-top: 18px;
-      font-size: 20px;
-      font-weight: 700;
+    .yes-page {
       display: none;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
     }
-    .result.show { display: block; }
 
-    .hint {
-      margin-top: 10px;
-      font-size: 13px;
-      opacity: 0.7;
+    .yes-page img {
+      width: 100%;
+      max-width: 360px;
+      border-radius: 18px;
+      margin: 20px 0;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+    }
+
+    /* Poulets */
+    .chicken {
+      position: fixed;
+      top: -50px;
+      font-size: 32px;
+      animation: fall linear infinite;
+      z-index: 1;
+      pointer-events: none;
+    }
+
+    @keyframes fall {
+      to {
+        transform: translateY(110vh) rotate(360deg);
+      }
     }
   </style>
 </head>
+
 <body>
-  <div class="card">
-    <h1>Hey mon amour 💘</h1>
-    <p>Est-ce que tu veux être mon Valentin pour la Saint-Valentin ?</p>
 
-    <div class="buttons" id="btnZone">
-      <button id="yesBtn">Oui 😍</button>
-      <button id="noBtn">Non 🙄</button>
+  <!-- PAGE QUESTION -->
+  <div class="card" id="questionPage">
+    <h1>Champion 🐔♥️</h1>
+    <p>
+      J’ai une question très sérieuse…<br><br>
+      Est-ce que tu veux être mon Valentin ? 💘
+    </p>
+
+    <div class="buttons">
+      <button id="yesBtn">OUIIIII ❤️</button>
+      <button id="noBtn">Non 😶</button>
     </div>
-
-    <div class="result" id="result"></div>
-    <div class="hint">PS : le "Non" est un peu timide…</div>
   </div>
+
+  <!-- PAGE OUI -->
+  <div class="yes-page" id="yesPage">
+    <h1>OUIIIIIIIII 🥹❤️</h1>
+
+    <p>
+      Rendez-vous le 14 à Londres 😌🇬🇧<br><br>
+      Joyeuse Saint-Valentin Champion 🐔♥️<br>
+      Je t’aime fort 💕
+    </p>
+
+    <!-- PHOTO -->
+    <img src="IMG_0451.jpeg" alt="Parce qu'on aime voyager ❤️">
 
   <script>
     const yesBtn = document.getElementById("yesBtn");
     const noBtn = document.getElementById("noBtn");
-    const zone = document.getElementById("btnZone");
-    const result = document.getElementById("result");
+    const questionPage = document.getElementById("questionPage");
+    const yesPage = document.getElementById("yesPage");
 
-    function showMessage(msg) {
-      result.textContent = msg;
-      result.classList.add("show");
-    }
-
-    // Quand il clique sur OUI
-    yesBtn.addEventListener("click", () => {
-      showMessage("YEEEES !! 🥰 Rendez-vous le 14 février 💐🍫");
-      // option : désactiver les boutons ensuite
-      yesBtn.disabled = true;
-      noBtn.disabled = true;
-      noBtn.style.opacity = 0.6;
-    });
-
-    // Faire bouger le bouton NON quand on s'approche / survole
-    function moveNoButton() {
-      const zoneRect = zone.getBoundingClientRect();
-      const btnRect = noBtn.getBoundingClientRect();
-
-      // dimensions de la zone (en restant dans le conteneur)
-      const maxX = zoneRect.width - btnRect.width;
-      const maxY = zoneRect.height - btnRect.height;
-
-      // positions aléatoires
-      const x = Math.max(0, Math.floor(Math.random() * maxX));
-      const y = Math.max(0, Math.floor(Math.random() * maxY));
-
+    function moveNo() {
+      const x = Math.random() * 200;
+      const y = Math.random() * 40;
       noBtn.style.left = x + "px";
       noBtn.style.top = y + "px";
-      noBtn.style.transform = "none";
     }
 
-    // Sur desktop
-    noBtn.addEventListener("mouseenter", moveNoButton);
-    // Sur mobile (quand on essaie de cliquer)
+    noBtn.addEventListener("mouseenter", moveNo);
+    noBtn.addEventListener("click", moveNo);
     noBtn.addEventListener("touchstart", (e) => {
       e.preventDefault();
-      moveNoButton();
+      moveNo();
     });
 
-    // Si jamais il réussit à cliquer quand même 😅
-    noBtn.addEventListener("click", () => {
-      showMessage("Oh non 😭 … attends, on réessaie 😇");
-      moveNoButton();
+    yesBtn.addEventListener("click", () => {
+      questionPage.style.display = "none";
+      yesPage.style.display = "flex";
+      startChickens();
     });
 
-    // Position de départ correcte (dans le conteneur)
-    // (met le bouton non dans la zone au chargement)
-    window.addEventListener("load", () => {
-      noBtn.style.top = "0px";
-      noBtn.style.left = "55%";
-    });
+    function startChickens() {
+      for (let i = 0; i < 25; i++) {
+        createChicken();
+      }
+    }
+
+    function createChicken() {
+      const chicken = document.createElement("div");
+      chicken.className = "chicken";
+      chicken.textContent = "🐔";
+      chicken.style.left = Math.random() * 100 + "vw";
+      chicken.style.animationDuration = 3 + Math.random() * 4 + "s";
+      document.body.appendChild(chicken);
+
+      setTimeout(() => {
+        chicken.remove();
+        createChicken();
+      }, 7000);
+    }
   </script>
+
 </body>
 </html>
